@@ -1,0 +1,1 @@
+"C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe" -u root -p123456 --default-character-set=utf8mb4 < book_store.sql
