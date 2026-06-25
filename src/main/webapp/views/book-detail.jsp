@@ -236,11 +236,22 @@
                                 </a>
                             </c:when>
                             <c:otherwise>
-                                <a href="/login?redirect=/books/${book.id}" class="chapter-link chapter-locked">
-                                    <span class="chapter-number">第${chapter.chapterNumber}章</span>
-                                    ${chapter.title}
-                                    <span style="color: #999; font-size: 12px; margin-left: 10px;">(需要购买)</span>
-                                </a>
+                                <c:choose>
+                                    <c:when test="${userId != null}">
+                                        <a href="javascript:void(0)" onclick="showPurchaseConfirm()" class="chapter-link chapter-locked">
+                                            <span class="chapter-number">第${chapter.chapterNumber}章</span>
+                                            ${chapter.title}
+                                            <span style="color: #999; font-size: 12px; margin-left: 10px;">(需要购买)</span>
+                                        </a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="/login?redirect=/books/${book.id}" class="chapter-link chapter-locked">
+                                            <span class="chapter-number">第${chapter.chapterNumber}章</span>
+                                            ${chapter.title}
+                                            <span style="color: #999; font-size: 12px; margin-left: 10px;">(需要购买)</span>
+                                        </a>
+                                    </c:otherwise>
+                                </c:choose>
                             </c:otherwise>
                         </c:choose>
                         <span>
