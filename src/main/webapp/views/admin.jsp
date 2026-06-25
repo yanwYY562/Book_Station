@@ -426,13 +426,23 @@
         }
 
         function approveBook(id) {
+            var btn = event.target;
+            if (btn.disabled) return;
+            btn.disabled = true;
+            btn.textContent = '处理中...';
             localStorage.setItem('reviewTabStatus_book', '0');
             fetch('/admin/approve-submission/' + id, {
                 method: 'GET'
             }).then(response => {
                 if (response.ok) {
                     window.location.href = '/admin?tab=review&reviewTab=book&status=0';
+                } else {
+                    throw new Error('审核失败');
                 }
+            }).catch(error => {
+                alert('审核失败，请刷新页面后重试');
+                btn.disabled = false;
+                btn.textContent = '通过';
             });
         }
 
@@ -448,24 +458,44 @@
         function confirmBookReject() {
             var id = document.getElementById('bookRejectId').value;
             var reason = document.getElementById('bookRejectReason').value;
+            var btn = event.target;
+            if (btn.disabled) return;
+            btn.disabled = true;
+            btn.textContent = '处理中...';
             localStorage.setItem('reviewTabStatus_book', '0');
             fetch('/admin/reject-submission/' + id + '?reason=' + encodeURIComponent(reason), {
                 method: 'GET'
             }).then(response => {
                 if (response.ok) {
                     window.location.href = '/admin?tab=review&reviewTab=book&status=0';
+                } else {
+                    throw new Error('拒绝失败');
                 }
+            }).catch(error => {
+                alert('操作失败，请刷新页面后重试');
+                btn.disabled = false;
+                btn.textContent = '确认拒绝';
             });
         }
 
         function approveChapter(id) {
+            var btn = event.target;
+            if (btn.disabled) return;
+            btn.disabled = true;
+            btn.textContent = '处理中...';
             localStorage.setItem('reviewTabStatus_chapter', '0');
             fetch('/admin/approve-chapter-submission/' + id, {
                 method: 'GET'
             }).then(response => {
                 if (response.ok) {
                     window.location.href = '/admin?tab=review&reviewTab=chapter&status=0';
+                } else {
+                    throw new Error('审核失败');
                 }
+            }).catch(error => {
+                alert('审核失败，请刷新页面后重试');
+                btn.disabled = false;
+                btn.textContent = '通过';
             });
         }
 
@@ -481,13 +511,23 @@
         function confirmChapterReject() {
             var id = document.getElementById('chapterRejectId').value;
             var reason = document.getElementById('chapterRejectReason').value;
+            var btn = event.target;
+            if (btn.disabled) return;
+            btn.disabled = true;
+            btn.textContent = '处理中...';
             localStorage.setItem('reviewTabStatus_chapter', '0');
             fetch('/admin/reject-chapter-submission/' + id + '?reason=' + encodeURIComponent(reason), {
                 method: 'GET'
             }).then(response => {
                 if (response.ok) {
                     window.location.href = '/admin?tab=review&reviewTab=chapter&status=0';
+                } else {
+                    throw new Error('拒绝失败');
                 }
+            }).catch(error => {
+                alert('操作失败，请刷新页面后重试');
+                btn.disabled = false;
+                btn.textContent = '确认拒绝';
             });
         }
 
